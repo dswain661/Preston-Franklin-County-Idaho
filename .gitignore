@@ -4,6 +4,9 @@ __pycache__/
 .venv/
 venv/
 .env
+scripts/meeting_publish/.env
+scripts/meeting_publish/client_secrets.json
+scripts/meeting_publish/youtube_token.json
 
 # Generated data (rebuild with scripts/build_all.py)
 data/generated/

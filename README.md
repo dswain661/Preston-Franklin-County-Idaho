@@ -4,6 +4,7 @@ Open-source civic tools for residents of **Preston** and **Franklin County, Idah
 
 **Live tools (in development):**
 - [Local Laws Dashboard](apps/local-laws-dashboard/) — search ordinances + official city/county pages
+- [Meeting → YouTube](scripts/meeting_publish/) — fixed Zoom join + local record + auto upload (runs on your PC)
 
 **Official sources (always verify):**
 - https://www.prestonidaho.net/

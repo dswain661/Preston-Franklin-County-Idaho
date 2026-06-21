@@ -28,6 +28,7 @@ Residents shouldn't need a law degree or insider knowledge to participate in loc
 | **Local Laws Dashboard** | ✅ MVP | Search Franklin County ordinances + crawled Preston/County pages |
 | **Official site crawler** | ✅ MVP | Indexes prestonidaho.net & franklincountyidaho.org |
 | **LOCUS data pipeline** | ✅ MVP | Franklin County export from HuggingFace LOCUS v1 |
+| **Meeting → YouTube pipeline** | 🚧 Scaffold | Fixed Zoom join + local record + auto YouTube upload (`scripts/meeting_publish/`) |
 
 ---
 
@@ -35,6 +36,7 @@ Residents shouldn't need a law degree or insider knowledge to participate in loc
 
 | Tool | Priority | Description |
 |------|----------|-------------|
+| **Meeting recordings hub** | High | YouTube embeds from `data/meetings.json` on citizen site |
 | **Permit & forms finder** | High | Map building/zoning/business forms to step-by-step guides |
 | **Meeting tracker** | High | Council + P&Z agendas/minutes in one calendar |
 | **Plain-language summaries** | High | Community-reviewed summaries of top 50 ordinances |
