@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Know Your Local Laws — Franklin County & Preston, Idaho</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --surface: #ffffff;
+      --surface-2: #eef2f6;
+      --ink: #1a2332;
+      --ink-muted: #5c6b7a;
+      --primary: #1e4d6b;
+      --primary-light: #2a6f94;
+      --accent: #c47d2a;
+      --accent-soft: #f4e8d8;
+      --success: #2d6a4f;
+      --border: #d8dee6;
+      --shadow: 0 4px 24px rgba(26, 35, 50, 0.08);
+      --radius: 14px;
+      --font-display: "Libre Baskerville", Georgia, serif;
+      --font-body: "DM Sans", system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { animation: none !important; transition: none !important; }
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary) 0%, #163a52 100%);
+      color: #fff;
+      padding: 2rem 1.5rem 1.25rem;
+    }
+    .header-inner { max-width: 1200px; margin: 0 auto; }
+    header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 4vw, 2.1rem);
+      margin: 0 0 0.4rem;
+      font-weight: 700;
+    }
+    header p { margin: 0; opacity: 0.9; max-width: 52rem; font-size: 0.95rem; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+    .badge {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0.25rem;
+      padding: 0.5rem 1rem;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+    .nav-btn {
+      border: none;
+      background: transparent;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+      padding: 0.65rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-btn:hover { background: var(--surface-2); color: var(--ink); }
+    .nav-btn.active { background: var(--accent-soft); color: var(--primary); }
+
+    main { max-width: 1200px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+    .view { display: none; animation: fadeIn 0.35s ease; }
+    .view.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    .disclaimer {
+      background: var(--accent-soft);
+      border-left: 4px solid var(--accent);
+      padding: 0.9rem 1rem;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      font-size: 0.85rem;
+      color: #5a4a32;
+      margin-bottom: 1.5rem;
+    }
+
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+    .stat-card .label { font-size: 0.8rem; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; }
+    .stat-card .value { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--primary); margin: 0.25rem 0; }
+    .stat-card .hint { font-size: 0.82rem; color: var(--ink-muted); }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+    .panel h2 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      margin: 0 0 1rem;
+      color: var(--primary);
+    }
+    .chart-wrap { position: relative; height: 260px; }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+    .guide-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem;
+      cursor: pointer;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .guide-card:hover, .guide-card.selected {
+      border-color: var(--primary-light);
+      box-shadow: var(--shadow);
+    }
+    .guide-card h3 { margin: 0 0 0.4rem; font-size: 1rem; color: var(--primary); }
+    .guide-card p { margin: 0; font-size: 0.88rem; color: var(--ink-muted); }
+    .guide-card .count { margin-top: 0.6rem; font-weight: 700; color: var(--accent); font-size: 0.85rem; }
+
+    .search-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .search-bar input, .search-bar select {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      padding: 0.65rem 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--ink);
+    }
+    .search-bar input { flex: 1; min-width: 200px; }
+    .search-bar select { min-width: 140px; }
+
+    .ordinance-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .ordinance {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.1rem;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .ordinance:hover { border-color: var(--primary-light); }
+    .ordinance h4 { margin: 0 0 0.35rem; font-size: 0.95rem; color: var(--ink); }
+    .ordinance .meta { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.5rem; }
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .tag-rules { background: #dbeafe; color: #1e40af; }
+    .tag-enforcement { background: #fee2e2; color: #991b1b; }
+    .tag-context { background: #e5e7eb; color: #374151; }
+    .tag-process { background: #fef3c7; color: #92400e; }
+    .tag-substantive { background: #d1fae5; color: #065f46; }
+    .tag-preston { background: var(--accent-soft); color: #7c4a12; }
+    .ordinance p { margin: 0; font-size: 0.86rem; color: var(--ink-muted); }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(26,35,50,0.5);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--surface);
+      border-radius: var(--radius);
+      max-width: 680px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 1.5rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+    .modal h3 { font-family: var(--font-display); margin: 0 0 0.75rem; color: var(--primary); }
+    .modal .body { font-size: 0.9rem; white-space: pre-wrap; line-height: 1.6; color: var(--ink); }
+    .modal .close-btn {
+      float: right;
+      border: none;
+      background: var(--surface-2);
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+
+    .complexity-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+    .complexity-bar:last-child { border-bottom: none; }
+    .bar-track { flex: 1; height: 8px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
+    .bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary-light), var(--accent)); border-radius: 4px; }
+    .complexity-bar .title { flex: 2; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    .empty { text-align: center; padding: 2rem; color: var(--ink-muted); }
+
+    .ref-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.85rem;
+    }
+    .ref-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.28);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+    }
+    .ref-link:hover { background: rgba(255,255,255,0.22); }
+
+    .source-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.1rem;
+      transition: border-color 0.15s;
+    }
+    .source-card:hover { border-color: var(--primary-light); }
+    .source-card h4 { margin: 0 0 0.35rem; font-size: 0.95rem; }
+    .source-card h4 a { color: var(--primary); text-decoration: none; }
+    .source-card h4 a:hover { text-decoration: underline; }
+    .source-card p { margin: 0; font-size: 0.86rem; color: var(--ink-muted); }
+    .tag-preston-site { background: #dbeafe; color: #1e3a8a; }
+    .tag-county-site { background: #e0e7ff; color: #3730a3; }
+    .tag-external { background: #fef3c7; color: #92400e; }
+    .tag-locus { background: #ecfdf5; color: #065f46; }
+
+    .section-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink-muted);
+      margin: 1.25rem 0 0.75rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <h1>Know Your Local Laws</h1>
+      <p>Explore Franklin County ordinances that affect Preston and surrounding communities — with official website references from Preston and Franklin County.</p>
+      <div class="badge-row" id="header-badges"></div>
+      <div class="ref-bar" id="ref-bar"></div>
+    </div>
+  </header>
+
+  <nav>
+    <div class="nav-inner" role="tablist">
+      <button class="nav-btn active" data-view="overview" role="tab">Overview</button>
+      <button class="nav-btn" data-view="topics" role="tab">Topics</button>
+      <button class="nav-btn" data-view="browse" role="tab">Browse & Search</button>
+      <button class="nav-btn" data-view="preston" role="tab">Preston Focus</button>
+      <button class="nav-btn" data-view="complexity" role="tab">Readability</button>
+      <button class="nav-btn" data-view="rights" role="tab">Your Rights</button>
+      <button class="nav-btn" data-view="official" role="tab">Official Sources</button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="disclaimer" id="disclaimer"></div>
+
+    <!-- OVERVIEW -->
+    <section class="view active" id="view-overview">
+      <div class="bento" id="stat-bento"></div>
+      <div class="grid-2">
+        <div class="panel">
+          <h2>What kind of law is this?</h2>
+          <p style="font-size:0.88rem;color:var(--ink-muted);margin:0 0 1rem">Not every section tells you what to do. Many are background, process, or enforcement.</p>
+          <div class="chart-wrap"><canvas id="chart-function"></canvas></div>
+        </div>
+        <div class="panel">
+          <h2>What affects daily life?</h2>
+          <p style="font-size:0.88rem;color:var(--ink-muted);margin:0 0 1rem"><strong>Substantive</strong> rules set real obligations. The rest is mostly how government works.</p>
+          <div class="chart-wrap"><canvas id="chart-substantive"></canvas></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h2>Quick start for residents</h2>
+        <div class="guide-grid" id="quick-guides"></div>
+      </div>
+    </section>
+
+    <!-- TOPICS -->
+    <section class="view" id="view-topics">
+      <div class="grid-2">
+        <div class="panel">
+          <h2>Laws by subject area</h2>
+          <div class="chart-wrap"><canvas id="chart-topic"></canvas></div>
+        </div>
+        <div class="panel">
+          <h2>Topic guide</h2>
+          <div id="topic-detail" style="font-size:0.92rem;color:var(--ink-muted)">Click a topic card below to learn what it covers.</div>
+        </div>
+      </div>
+      <div class="guide-grid" id="topic-guides"></div>
+    </section>
+
+    <!-- BROWSE -->
+    <section class="view" id="view-browse">
+      <div class="search-bar">
+        <input type="search" id="search-input" placeholder="Search ordinances and official pages (zoning, permit, forms)..." aria-label="Search ordinances and official sources" />
+        <select id="filter-function" aria-label="Filter by function">
+          <option value="">All functions</option>
+          <option value="Rules">Rules</option>
+          <option value="Enforcement">Enforcement</option>
+          <option value="Context">Context</option>
+          <option value="Process">Process</option>
+        </select>
+        <select id="filter-topic" aria-label="Filter by topic">
+          <option value="">All topics</option>
+        </select>
+        <select id="filter-substantive" aria-label="Filter substantive">
+          <option value="">All types</option>
+          <option value="true">Substantive only</option>
+          <option value="false">Non-substantive only</option>
+        </select>
+      </div>
+      <p id="result-count" style="font-size:0.85rem;color:var(--ink-muted);margin:0 0 1rem"></p>
+      <div class="section-label">Ordinance text (LOCUS dataset)</div>
+      <div class="ordinance-list" id="ordinance-list"></div>
+      <div class="section-label" id="official-results-label" style="display:none">Official website results</div>
+      <div class="ordinance-list" id="official-results"></div>
+    </section>
+
+    <!-- PRESTON -->
+    <section class="view" id="view-preston">
+      <div class="panel" style="margin-bottom:1.25rem">
+        <h2>Preston &amp; Franklin County</h2>
+        <p style="margin:0;font-size:0.92rem;color:var(--ink-muted)">
+          Preston is a city within Franklin County. In this dataset, local law is published at the <strong>county</strong> level.
+          Sections mentioning Preston often deal with <em>Area of City Impact</em> — where county and city planning overlap.
+        </p>
+      </div>
+      <div class="ordinance-list" id="preston-list"></div>
+    </section>
+
+    <!-- COMPLEXITY -->
+    <section class="view" id="view-complexity">
+      <div class="grid-2">
+        <div class="panel">
+          <h2>Hardest to read</h2>
+          <p style="font-size:0.85rem;color:var(--ink-muted);margin:0 0 1rem">Higher opacity scores suggest denser, more confusing language. Useful for prioritizing plain-language summaries.</p>
+          <div id="opacity-list"></div>
+        </div>
+        <div class="panel">
+          <h2>Strongest enforcement signals</h2>
+          <p style="font-size:0.85rem;color:var(--ink-muted);margin:0 0 1rem">Sections where government discretion to enforce appears highest — worth understanding first.</p>
+          <div id="enforcement-list"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h2>Average ordinance length</h2>
+        <p id="avg-words" style="font-size:1.1rem;margin:0"></p>
+      </div>
+    </section>
+
+    <!-- RIGHTS -->
+    <section class="view" id="view-rights">
+      <div class="grid-2">
+        <div class="panel">
+          <h2>Know before you act</h2>
+          <ul style="margin:0;padding-left:1.2rem;font-size:0.92rem;color:var(--ink)">
+            <li style="margin-bottom:0.6rem"><strong>County vs. city:</strong> Many Preston rules live in Franklin County code, especially land use and zoning near city boundaries.</li>
+            <li style="margin-bottom:0.6rem"><strong>Substantive rules</strong> (Rules + Enforcement) are what most likely affect property, business, and daily conduct.</li>
+            <li style="margin-bottom:0.6rem"><strong>Process sections</strong> explain permits, hearings, and how to appeal — critical if you disagree with a decision.</li>
+            <li style="margin-bottom:0.6rem"><strong>Official source:</strong> Always verify against the county clerk or official codification before relying on any summary.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h2>How to use this dashboard</h2>
+          <ol style="margin:0;padding-left:1.2rem;font-size:0.92rem">
+            <li style="margin-bottom:0.5rem">Start with <strong>Topics</strong> to see what areas affect you.</li>
+            <li style="margin-bottom:0.5rem">Use <strong>Browse & Search</strong> for keywords (fence, animal, permit, etc.).</li>
+            <li style="margin-bottom:0.5rem">Check <strong>Preston Focus</strong> for city-impact and boundary rules.</li>
+            <li style="margin-bottom:0.5rem">Use <strong>Readability</strong> to find laws that may need extra explanation.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="panel">
+        <h2>Enforcement &amp; penalty ordinances</h2>
+        <div class="ordinance-list" id="enforcement-ordinances"></div>
+      </div>
+    </section>
+
+    <!-- OFFICIAL SOURCES -->
+    <section class="view" id="view-official">
+      <div class="panel" style="margin-bottom:1.25rem">
+        <h2>Primary official references</h2>
+        <p style="margin:0 0 1rem;font-size:0.92rem;color:var(--ink-muted)">
+          These are the authoritative sources residents should verify against. The dashboard crawls
+          <strong>prestonidaho.net</strong> and <strong>franklincountyidaho.org</strong> to surface
+          forms, departments, agendas, and linked resources.
+        </p>
+        <div class="ref-bar" id="official-ref-cards" style="margin-top:0"></div>
+      </div>
+      <div class="search-bar">
+        <input type="search" id="official-search" placeholder="Search official pages..." aria-label="Search official sources" />
+        <select id="official-filter" aria-label="Filter official source">
+          <option value="">All sources</option>
+          <option value="preston">City of Preston</option>
+          <option value="franklin_county">Franklin County</option>
+        </select>
+      </div>
+      <p id="official-count" style="font-size:0.85rem;color:var(--ink-muted)"></p>
+      <div class="grid-2" style="margin-bottom:1.25rem">
+        <div class="panel">
+          <h2>Key Preston pages</h2>
+          <div class="ordinance-list" id="key-preston"></div>
+        </div>
+        <div class="panel">
+          <h2>Key Franklin County pages</h2>
+          <div class="ordinance-list" id="key-county"></div>
+        </div>
+      </div>
+      <div class="ordinance-list" id="official-list"></div>
+    </section>
+  </main>
+
+  <footer id="footer-text">Data: LOCUS v1.0 + official crawls · For civic education — not legal advice</footer>
+
+  <div class="modal-overlay" id="modal" role="dialog" aria-modal="true">
+    <div class="modal">
+      <button class="close-btn" id="modal-close" aria-label="Close">×</button>
+      <h3 id="modal-title"></h3>
+      <div class="meta" id="modal-meta"></div>
+      <div class="body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <script>
+    let DATA = null;
+    const charts = {};
+
+    function tagClass(fn) {
+      return { Rules: 'tag-rules', Enforcement: 'tag-enforcement', Context: 'tag-context', Process: 'tag-process' }[fn] || 'tag-context';
+    }
+
+    function renderTags(r) {
+      let html = `<span class="tag ${tagClass(r.function)}">${r.function}</span>`;
+      if (r.is_substantive) html += `<span class="tag tag-substantive">Substantive</span>`;
+      if (r.topic) html += `<span class="tag tag-rules">${r.topic_label}</span>`;
+      if (r.mentions_preston) html += `<span class="tag tag-preston">Preston</span>`;
+      return html;
+    }
+
+    function ordinanceCard(r, click = true) {
+      const el = document.createElement('div');
+      el.className = 'ordinance';
+      const ref = DATA?.official_sources?.references?.county_ordinances
+        ? `<span class="tag tag-locus">LOCUS · <a href="${DATA.official_sources.references.county_ordinances}" target="_blank" rel="noopener" onclick="event.stopPropagation()">verify official code</a></span>`
+        : `<span class="tag tag-locus">LOCUS dataset</span>`;
+      el.innerHTML = `<div class="meta">${renderTags(r)}${ref}</div><h4>${r.header}</h4><p>${r.excerpt}</p>`;
+      if (click) el.addEventListener('click', () => openModal(r));
+      return el;
+    }
+
+    function sourceTag(page) {
+      if (page.external) return '<span class="tag tag-external">External official link</span>';
+      if (page.source_key === 'preston') return '<span class="tag tag-preston-site">prestonidaho.net</span>';
+      return '<span class="tag tag-county-site">franklincountyidaho.org</span>';
+    }
+
+    function officialCard(page) {
+      const el = document.createElement('div');
+      el.className = 'source-card';
+      el.innerHTML = `
+        <div class="meta">${sourceTag(page)}</div>
+        <h4><a href="${page.url}" target="_blank" rel="noopener">${page.title}</a></h4>
+        <p>${page.excerpt}</p>`;
+      return el;
+    }
+
+    function openModal(r) {
+      document.getElementById('modal-title').textContent = r.header;
+      const refs = DATA?.official_sources?.references || {};
+      let extra = `<span class="tag tag-locus">LOCUS dataset</span>`;
+      if (refs.county_ordinances) {
+        extra += ` <span class="tag tag-county-site"><a href="${refs.county_ordinances}" target="_blank" rel="noopener">Official county code →</a></span>`;
+      }
+      if (refs.preston) {
+        extra += ` <span class="tag tag-preston-site"><a href="${refs.preston}" target="_blank" rel="noopener">prestonidaho.net →</a></span>`;
+      }
+      document.getElementById('modal-meta').innerHTML = renderTags(r) + extra;
+      document.getElementById('modal-body').textContent = r.content;
+      document.getElementById('modal').classList.add('open');
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('open');
+    }
+
+    function makeChart(id, type, labels, values, colors) {
+      const ctx = document.getElementById(id);
+      if (charts[id]) charts[id].destroy();
+      charts[id] = new Chart(ctx, {
+        type,
+        data: {
+          labels,
+          datasets: [{ data: values, backgroundColor: colors, borderWidth: 0 }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: type === 'doughnut' ? 'right' : 'top', labels: { boxWidth: 12, font: { family: 'DM Sans', size: 11 } } } },
+          scales: type === 'bar' ? { y: { beginAtZero: true, ticks: { stepSize: 1 } } } : {}
+        }
+      });
+    }
+
+    function renderOfficialList(pages, listId, countId, emptyMsg) {
+      const list = document.getElementById(listId);
+      list.innerHTML = '';
+      if (countId) {
+        document.getElementById(countId).textContent = `${pages.length} official page${pages.length !== 1 ? 's' : ''}`;
+      }
+      if (!pages.length) {
+        list.innerHTML = `<div class="empty">${emptyMsg}</div>`;
+        return;
+      }
+      pages.slice(0, 60).forEach(p => list.appendChild(officialCard(p)));
+      if (pages.length > 60) {
+        const more = document.createElement('p');
+        more.className = 'empty';
+        more.textContent = `Showing first 60 of ${pages.length}. Refine your search.`;
+        list.appendChild(more);
+      }
+    }
+
+    function filterOfficialPages(q, sourceKey) {
+      if (!DATA.official_sources) return [];
+      return DATA.official_sources.pages.filter(p => {
+        if (sourceKey && p.source_key !== sourceKey) return false;
+        if (q && !p.search_text.includes(q)) return false;
+        return true;
+      });
+    }
+
+    function renderOfficialView() {
+      const q = document.getElementById('official-search').value.toLowerCase();
+      const src = document.getElementById('official-filter').value;
+      renderOfficialList(filterOfficialPages(q, src || null), 'official-list', 'official-count', 'No official pages match.');
+    }
+
+    function renderBrowse() {
+      const q = document.getElementById('search-input').value.toLowerCase();
+      const fn = document.getElementById('filter-function').value;
+      const topic = document.getElementById('filter-topic').value;
+      const sub = document.getElementById('filter-substantive').value;
+
+      const filtered = DATA.records.filter(r => {
+        if (fn && r.function !== fn) return false;
+        if (topic === '__procedural__' && r.topic) return false;
+        if (topic && topic !== '__procedural__' && r.topic !== topic) return false;
+        if (sub === 'true' && !r.is_substantive) return false;
+        if (sub === 'false' && r.is_substantive) return false;
+        if (q && !(r.header + r.content + r.topic_label).toLowerCase().includes(q)) return false;
+        return true;
+      });
+
+      const list = document.getElementById('ordinance-list');
+      list.innerHTML = '';
+      const officialMatches = q ? filterOfficialPages(q, null) : [];
+      document.getElementById('result-count').textContent =
+        `${filtered.length} ordinance${filtered.length !== 1 ? 's' : ''}` +
+        (q ? ` · ${officialMatches.length} official page${officialMatches.length !== 1 ? 's' : ''}` : '');
+
+      if (!filtered.length) {
+        list.innerHTML = '<div class="empty">No ordinances match your filters. Try broader search terms.</div>';
+      } else {
+        filtered.slice(0, 80).forEach(r => list.appendChild(ordinanceCard(r)));
+        if (filtered.length > 80) {
+          const more = document.createElement('p');
+          more.className = 'empty';
+          more.textContent = `Showing first 80 of ${filtered.length}. Refine your search to see more.`;
+          list.appendChild(more);
+        }
+      }
+
+      const offLabel = document.getElementById('official-results-label');
+      const offList = document.getElementById('official-results');
+      offList.innerHTML = '';
+      if (q && officialMatches.length) {
+        offLabel.style.display = 'block';
+        officialMatches.slice(0, 20).forEach(p => offList.appendChild(officialCard(p)));
+      } else {
+        offLabel.style.display = 'none';
+      }
+    }
+
+    function init(data) {
+      DATA = data;
+      const m = data.meta;
+      const s = data.summary;
+
+      document.getElementById('disclaimer').textContent = m.disclaimer;
+      const off = data.official_sources || {};
+      const refs = off.references || {};
+
+      document.getElementById('header-badges').innerHTML = `
+        <span class="badge">${m.jurisdiction}</span>
+        <span class="badge">Focus: ${m.city_focus}</span>
+        <span class="badge">${m.total_ordinances} ordinance sections</span>
+        <span class="badge">${off.pages?.length || 0} official pages crawled</span>
+      `;
+
+      document.getElementById('ref-bar').innerHTML = `
+        <a class="ref-link" href="${refs.preston || '#'}" target="_blank" rel="noopener">City of Preston</a>
+        <a class="ref-link" href="${refs.franklin_county || '#'}" target="_blank" rel="noopener">Franklin County</a>
+        <a class="ref-link" href="${refs.county_ordinances || '#'}" target="_blank" rel="noopener">Official County Code</a>
+      `;
+
+      document.getElementById('stat-bento').innerHTML = `
+        <div class="stat-card"><div class="label">Ordinance sections</div><div class="value">${m.total_ordinances}</div><div class="hint">LOCUS dataset</div></div>
+        <div class="stat-card"><div class="label">Official pages</div><div class="value">${off.pages?.length || 0}</div><div class="hint">Preston + County sites</div></div>
+        <div class="stat-card"><div class="label">Affect daily life</div><div class="value">${m.substantive_count}</div><div class="hint">${s.substantive_pct}% substantive</div></div>
+        <div class="stat-card"><div class="label">Mention Preston</div><div class="value">${m.preston_mentions}</div><div class="hint">City impact & related</div></div>
+      `;
+
+      const fnLabels = Object.keys(s.by_function);
+      const fnVals = Object.values(s.by_function);
+      makeChart('chart-function', 'doughnut', fnLabels, fnVals,
+        ['#1e4d6b','#c47d2a','#5c6b7a','#2d6a4f']);
+
+      makeChart('chart-substantive', 'doughnut',
+        ['Substantive (rules that matter)', 'Background & process'],
+        [m.substantive_count, m.total_ordinances - m.substantive_count],
+        ['#2d6a4f','#d8dee6']);
+
+      const topicLabels = Object.keys(s.by_topic);
+      const topicVals = Object.values(s.by_topic);
+      makeChart('chart-topic', 'bar', topicLabels, topicVals,
+        ['#1e4d6b','#2a6f94','#c47d2a','#2d6a4f','#5c6b7a','#9ca3af']);
+
+      const quick = document.getElementById('quick-guides');
+      data.topic_guides.forEach(g => {
+        const card = document.createElement('div');
+        card.className = 'guide-card';
+        card.innerHTML = `<h3>${g.title}</h3><p>${g.plain}</p><div class="count">${g.count} sections →</div>`;
+        card.addEventListener('click', () => {
+          document.querySelector('[data-view="browse"]').click();
+          document.getElementById('filter-topic').value = g.key;
+          renderBrowse();
+        });
+        quick.appendChild(card);
+      });
+
+      const guides = document.getElementById('topic-guides');
+      const detail = document.getElementById('topic-detail');
+      data.topic_guides.forEach(g => {
+        const card = document.createElement('div');
+        card.className = 'guide-card';
+        card.innerHTML = `<h3>${g.title}</h3><p>${g.plain}</p><div class="count">${g.count} sections</div>`;
+        card.addEventListener('click', () => {
+          document.querySelectorAll('#topic-guides .guide-card').forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+          detail.innerHTML = `<strong>${g.title}</strong> — ${g.plain}<br><br>Click <em>Browse & Search</em> and filter by topic to read all ${g.count} sections.`;
+        });
+        guides.appendChild(card);
+      });
+
+      const topicSelect = document.getElementById('filter-topic');
+      data.topic_guides.forEach(g => {
+        const opt = document.createElement('option');
+        opt.value = g.key;
+        opt.textContent = g.title;
+        topicSelect.appendChild(opt);
+      });
+      const procOpt = document.createElement('option');
+      procOpt.value = '__procedural__';
+      procOpt.textContent = 'Procedural / Background';
+      topicSelect.appendChild(procOpt);
+
+      const prestonList = document.getElementById('preston-list');
+      data.records.filter(r => r.mentions_preston).forEach(r => prestonList.appendChild(ordinanceCard(r)));
+
+      const maxOp = Math.max(...s.hardest_to_read.map(r => r.opacity));
+      document.getElementById('opacity-list').innerHTML = s.hardest_to_read.map(r => `
+        <div class="complexity-bar" data-id="${r.id}" style="cursor:pointer">
+          <span class="title" title="${r.header}">${r.header}</span>
+          <div class="bar-track"><div class="bar-fill" style="width:${Math.max(5, (r.opacity / maxOp) * 100)}%"></div></div>
+        </div>`).join('');
+      document.querySelectorAll('#opacity-list .complexity-bar').forEach(el => {
+        el.addEventListener('click', () => openModal(DATA.records.find(r => r.id == el.dataset.id)));
+      });
+
+      const maxEnf = Math.max(...s.most_enforced.map(r => r.enforcement_discretion));
+      document.getElementById('enforcement-list').innerHTML = s.most_enforced.map(r => `
+        <div class="complexity-bar" data-id="${r.id}" style="cursor:pointer">
+          <span class="title" title="${r.header}">${r.header}</span>
+          <div class="bar-track"><div class="bar-fill" style="width:${Math.max(5, (r.enforcement_discretion / maxEnf) * 100)}%"></div></div>
+        </div>`).join('');
+      document.querySelectorAll('#enforcement-list .complexity-bar').forEach(el => {
+        el.addEventListener('click', () => openModal(DATA.records.find(r => r.id == el.dataset.id)));
+      });
+
+      document.getElementById('avg-words').textContent =
+        `The average ordinance section is about ${s.avg_word_count} words. Longer sections may need plain-language summaries for public use.`;
+
+      const enfList = document.getElementById('enforcement-ordinances');
+      DATA.records.filter(r => r.function === 'Enforcement').slice(0, 12).forEach(r => enfList.appendChild(ordinanceCard(r)));
+
+      if (off.pages) {
+        document.getElementById('official-ref-cards').innerHTML = `
+          <a class="ref-link" style="color:var(--primary);background:var(--accent-soft);border-color:var(--border)" href="${refs.preston}" target="_blank" rel="noopener">prestonidaho.net</a>
+          <a class="ref-link" style="color:var(--primary);background:var(--accent-soft);border-color:var(--border)" href="${refs.franklin_county}" target="_blank" rel="noopener">franklincountyidaho.org</a>
+          <a class="ref-link" style="color:var(--primary);background:var(--accent-soft);border-color:var(--border)" href="${refs.county_ordinances}" target="_blank" rel="noopener">County Code (AmLegal)</a>
+        `;
+        (off.key_links?.preston || []).slice(0, 8).forEach(p => {
+          document.getElementById('key-preston').appendChild(officialCard(p));
+        });
+        (off.key_links?.franklin_county || []).slice(0, 8).forEach(p => {
+          document.getElementById('key-county').appendChild(officialCard(p));
+        });
+        ['official-search', 'official-filter'].forEach(id => {
+          document.getElementById(id).addEventListener('input', renderOfficialView);
+          document.getElementById(id).addEventListener('change', renderOfficialView);
+        });
+        renderOfficialView();
+        document.getElementById('footer-text').textContent =
+          `Sources: LOCUS v1.0 · prestonidaho.net · franklincountyidaho.org · Crawled ${off.crawled_at || ''} · Not legal advice`;
+      }
+
+      ['search-input','filter-function','filter-topic','filter-substantive'].forEach(id => {
+        document.getElementById(id).addEventListener('input', renderBrowse);
+        document.getElementById(id).addEventListener('change', renderBrowse);
+      });
+      renderBrowse();
+    }
+
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('view-' + btn.dataset.view).classList.add('active');
+      });
+    });
+
+    document.getElementById('modal-close').addEventListener('click', closeModal);
+    document.getElementById('modal').addEventListener('click', e => { if (e.target.id === 'modal') closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    fetch('dashboard_bundle.json')
+      .then(r => r.json())
+      .then(init)
+      .catch(() => fetch('data.json').then(r => r.json()).then(init))
+      .catch(() => {
+        document.getElementById('disclaimer').textContent =
+          'Could not load dashboard data. Run build_bundle.py or open index-standalone.html.';
+      });
+  </script>
+</body>
+</html>

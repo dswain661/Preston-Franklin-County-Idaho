@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Generated data (rebuild with scripts/build_all.py)
+data/generated/
+
+# Standalone HTML is committed for GitHub Pages deploy
+# apps/local-laws-dashboard/index-standalone.html
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
