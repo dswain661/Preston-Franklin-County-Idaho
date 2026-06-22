@@ -18,9 +18,13 @@
     .point { border-top:1px solid var(--border); padding-top:.7rem; margin-top:.7rem; }
     .point strong { color:var(--primary); }
     .time { font-size:.78rem; color:var(--muted); }
+    .time a { color:var(--accent); text-decoration:none; font-weight:600; }
+    .time a:hover { text-decoration:underline; }
     a { color:var(--primary); }
     .refs { font-size:.85rem; color:var(--muted); margin-top:1.5rem; }
-    .empty { text-align:center; color:var(--muted); padding:2rem; }
+    .video-wrap { position:relative; padding-bottom:56.25%; height:0; margin:.75rem 0 0; border-radius:8px; overflow:hidden; }
+    .video-wrap iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
+    .watch-btn { display:inline-block; margin-top:.5rem; font-size:.85rem; font-weight:600; }
   </style>
 </head>
 <body>
@@ -43,32 +47,59 @@
       "date": "2026-06-08",
       "jurisdiction": "Franklin County, Idaho",
       "body": "Board of County Commissioners",
+      "youtube_id": "LNtYcn74sqQ",
+      "youtube_url": "https://www.youtube.com/watch?v=LNtYcn74sqQ",
       "topics": [{
         "title": "IT Services Agreement Renewal",
         "time_range": "7:31 - 8:44",
+        "youtube_start": "7:31",
         "speaker": "TJ Burbank",
         "role": "IT Specialist",
         "summary": "Renewal of the county's IT services agreement. Labor rate is the primary contract change, aligned with rates charged to other counties.",
         "key_points": [
-          { "label": "Rate adjustment", "detail": "The labor rate is the main element changing in the renewal. Burbank stated the updated rate matches what he charges other counties for comparable professional IT services.", "time_range": "7:41 - 7:50" },
-          { "label": "Effective date", "detail": "The agreement was approved effective June 8, 2026 (date of meeting), but the new labor rate is deferred until October 1, 2026 — the start of the new budget year — to avoid impacting the current fiscal budget.", "time_range": "7:52 - 8:05" },
-          { "label": "Budget consideration", "detail": "Commissioners confirmed with Burbank that the current year's budgeted IT services amount would not change; the rate adjustment applies to the upcoming budget year only.", "time_range": "8:06 - 8:12" }
+          { "label": "Rate adjustment", "detail": "The labor rate is the main element changing in the renewal. Burbank stated the updated rate matches what he charges other counties for comparable professional IT services.", "time_range": "7:41 - 7:50", "youtube_start": "7:41" },
+          { "label": "Effective date", "detail": "The agreement was approved effective June 8, 2026 (date of meeting), but the new labor rate is deferred until October 1, 2026 — the start of the new budget year — to avoid impacting the current fiscal budget.", "time_range": "7:52 - 8:05", "youtube_start": "7:52" },
+          { "label": "Budget consideration", "detail": "Commissioners confirmed with Burbank that the current year's budgeted IT services amount would not change; the rate adjustment applies to the upcoming budget year only.", "time_range": "8:06 - 8:12", "youtube_start": "8:06" }
         ],
         "citizen_takeaway": "County IT contract renewed June 8, 2026. Your tax dollars for IT services this budget year stay as budgeted; labor rate increases begin October 1, 2026 with the new fiscal year."
       }],
       "disclaimer": "Community summary for civic transparency. Not an official county record — verify against agendas, minutes, and recordings."
     };
 
+    function toSeconds(ts) {
+      const parts = ts.trim().split(':').map(Number);
+      if (parts.length === 2) return parts[0] * 60 + parts[1];
+      if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+      return 0;
+    }
+
+    function ytLink(videoId, start) {
+      const base = `https://www.youtube.com/watch?v=${videoId}`;
+      return start ? `${base}&t=${toSeconds(start)}s` : base;
+    }
+
     function render(s) {
+      const vid = s.youtube_id;
+      const videoBlock = vid ? `
+        <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed/${vid}" title="Meeting recording" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <a class="watch-btn" href="${s.youtube_url}" target="_blank" rel="noopener">Watch on YouTube ↗</a>` : '';
+
       const topics = s.topics.map(t => `
         <div class="card">
           <h2>${t.title}</h2>
-          <div class="meta">${s.jurisdiction} · ${t.speaker}, ${t.role} · ${t.time_range}</div>
+          <div class="meta">${s.jurisdiction} · ${t.speaker}, ${t.role} ·
+            <span class="time">${vid ? `<a href="${ytLink(vid, t.youtube_start)}" target="_blank" rel="noopener">${t.time_range} ↗</a>` : t.time_range}</span>
+          </div>
           <p>${t.summary}</p>
           <div class="takeaway"><strong>For residents:</strong> ${t.citizen_takeaway}</div>
           ${t.key_points.map(p => `
             <div class="point">
-              <strong>${p.label}</strong> <span class="time">(${p.time_range})</span><br>${p.detail}
+              <strong>${p.label}</strong>
+              <span class="time">${vid && p.youtube_start
+                ? `(<a href="${ytLink(vid, p.youtube_start)}" target="_blank" rel="noopener">${p.time_range} ↗</a>)`
+                : `(${p.time_range})`}</span><br>${p.detail}
             </div>`).join('')}
         </div>`).join('');
 
@@ -76,7 +107,8 @@
         <div class="card" style="margin-bottom:1.25rem">
           <h2>${s.title}</h2>
           <div class="meta">${s.date} · ${s.body}</div>
-          <p style="font-size:.85rem;color:var(--muted);margin:0">${s.disclaimer}</p>
+          ${videoBlock}
+          <p style="font-size:.85rem;color:var(--muted);margin:.75rem 0 0">${s.disclaimer}</p>
         </div>
         ${topics}`;
     }
