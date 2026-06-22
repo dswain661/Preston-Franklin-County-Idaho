@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meeting Hub — Preston & Franklin County</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg:#f6f4ef; --surface:#fff; --ink:#1a2332; --muted:#5c6b7a; --primary:#1e4d6b; --accent:#c47d2a; --border:#d8dee6; }
+    body { margin:0; font-family:"DM Sans",sans-serif; background:var(--bg); color:var(--ink); line-height:1.55; }
+    header { background:linear-gradient(135deg,var(--primary),#163a52); color:#fff; padding:1.75rem 1.25rem; }
+    header h1 { font-family:"Libre Baskerville",serif; margin:0 0 .35rem; font-size:1.6rem; }
+    main { max-width:800px; margin:0 auto; padding:1.25rem; }
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.1rem 1.2rem; margin-bottom:1rem; }
+    .card h2 { margin:0 0 .25rem; font-size:1.05rem; color:var(--primary); }
+    .meta { font-size:.82rem; color:var(--muted); margin-bottom:.75rem; }
+    .takeaway { background:#f4e8d8; border-left:4px solid var(--accent); padding:.75rem .9rem; border-radius:0 8px 8px 0; font-size:.9rem; margin:.75rem 0; }
+    .point { border-top:1px solid var(--border); padding-top:.7rem; margin-top:.7rem; }
+    .point strong { color:var(--primary); }
+    .time { font-size:.78rem; color:var(--muted); }
+    a { color:var(--primary); }
+    .refs { font-size:.85rem; color:var(--muted); margin-top:1.5rem; }
+    .empty { text-align:center; color:var(--muted); padding:2rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Meeting Hub</h1>
+    <p style="margin:0;opacity:.9;font-size:.95rem">Plain-language summaries of public meetings — with timestamps and official references.</p>
+  </header>
+  <main>
+    <div id="content"><p class="empty">Loading…</p></div>
+    <p class="refs">
+      Official: <a href="https://www.franklincountyidaho.org/">franklincountyidaho.org</a> ·
+      <a href="https://www.prestonidaho.net/">prestonidaho.net</a> ·
+      <a href="https://cms2.revize.com/revize/franklincounty/government/agendas_minutes.php">Agendas & Minutes</a>
+    </p>
+  </main>
+  <script>
+    const SUMMARY = {
+      "id": "2026-06-08-franklin-county-commissioners",
+      "title": "Franklin County Commissioner Meeting",
+      "date": "2026-06-08",
+      "jurisdiction": "Franklin County, Idaho",
+      "body": "Board of County Commissioners",
+      "topics": [{
+        "title": "IT Services Agreement Renewal",
+        "time_range": "7:31 - 8:44",
+        "speaker": "TJ Burbank",
+        "role": "IT Specialist",
+        "summary": "Renewal of the county's IT services agreement. Labor rate is the primary contract change, aligned with rates charged to other counties.",
+        "key_points": [
+          { "label": "Rate adjustment", "detail": "The labor rate is the main element changing in the renewal. Burbank stated the updated rate matches what he charges other counties for comparable professional IT services.", "time_range": "7:41 - 7:50" },
+          { "label": "Effective date", "detail": "The agreement was approved effective June 8, 2026 (date of meeting), but the new labor rate is deferred until October 1, 2026 — the start of the new budget year — to avoid impacting the current fiscal budget.", "time_range": "7:52 - 8:05" },
+          { "label": "Budget consideration", "detail": "Commissioners confirmed with Burbank that the current year's budgeted IT services amount would not change; the rate adjustment applies to the upcoming budget year only.", "time_range": "8:06 - 8:12" }
+        ],
+        "citizen_takeaway": "County IT contract renewed June 8, 2026. Your tax dollars for IT services this budget year stay as budgeted; labor rate increases begin October 1, 2026 with the new fiscal year."
+      }],
+      "disclaimer": "Community summary for civic transparency. Not an official county record — verify against agendas, minutes, and recordings."
+    };
+
+    function render(s) {
+      const topics = s.topics.map(t => `
+        <div class="card">
+          <h2>${t.title}</h2>
+          <div class="meta">${s.jurisdiction} · ${t.speaker}, ${t.role} · ${t.time_range}</div>
+          <p>${t.summary}</p>
+          <div class="takeaway"><strong>For residents:</strong> ${t.citizen_takeaway}</div>
+          ${t.key_points.map(p => `
+            <div class="point">
+              <strong>${p.label}</strong> <span class="time">(${p.time_range})</span><br>${p.detail}
+            </div>`).join('')}
+        </div>`).join('');
+
+      document.getElementById('content').innerHTML = `
+        <div class="card" style="margin-bottom:1.25rem">
+          <h2>${s.title}</h2>
+          <div class="meta">${s.date} · ${s.body}</div>
+          <p style="font-size:.85rem;color:var(--muted);margin:0">${s.disclaimer}</p>
+        </div>
+        ${topics}`;
+    }
+    render(SUMMARY);
+  </script>
+</body>
+</html>

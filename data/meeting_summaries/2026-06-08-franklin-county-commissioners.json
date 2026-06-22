@@ -1,0 +1,39 @@
+{
+  "id": "2026-06-08-franklin-county-commissioners",
+  "title": "Franklin County Commissioner Meeting",
+  "date": "2026-06-08",
+  "jurisdiction": "Franklin County, Idaho",
+  "body": "Board of County Commissioners",
+  "official_sources": [
+    "https://www.franklincountyidaho.org/",
+    "https://cms2.revize.com/revize/franklincounty/government/agendas_minutes.php"
+  ],
+  "topics": [
+    {
+      "title": "IT Services Agreement Renewal",
+      "time_range": "7:31 - 8:44",
+      "speaker": "TJ Burbank",
+      "role": "IT Specialist",
+      "summary": "Renewal of the county's IT services agreement. Labor rate is the primary contract change, aligned with rates charged to other counties.",
+      "key_points": [
+        {
+          "label": "Rate adjustment",
+          "detail": "The labor rate is the main element changing in the renewal. Burbank stated the updated rate matches what he charges other counties for comparable professional IT services.",
+          "time_range": "7:41 - 7:50"
+        },
+        {
+          "label": "Effective date",
+          "detail": "The agreement was approved effective June 8, 2026 (date of meeting), but the new labor rate is deferred until October 1, 2026 — the start of the new budget year — to avoid impacting the current fiscal budget.",
+          "time_range": "7:52 - 8:05"
+        },
+        {
+          "label": "Budget consideration",
+          "detail": "Commissioners confirmed with Burbank that the current year's budgeted IT services amount would not change; the rate adjustment applies to the upcoming budget year only.",
+          "time_range": "8:06 - 8:12"
+        }
+      ],
+      "citizen_takeaway": "County IT contract renewed June 8, 2026. Your tax dollars for IT services this budget year stay as budgeted; labor rate increases begin October 1, 2026 with the new fiscal year."
+    }
+  ],
+  "disclaimer": "Community summary for civic transparency. Not an official county record — verify against agendas, minutes, and recordings."
+}
